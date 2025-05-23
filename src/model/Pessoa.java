@@ -11,5 +11,27 @@ public abstract class Pessoa {
         this.identificacaoFiscal = identificacaoFiscal;
     }
 
-    // Getters e Setters
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public void setNome(String nome){
+        this.nome = nome;
+    }
+
+    public void setIdentificacaoFiscal(String identificacaoFisca){
+        this.identificacaoFiscal = identificacaoFisca;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public String getNome(){
+        return this.nome;
+    }
+
+    public String getIdentificacaoFiscal(){
+        return this.identificacaoFiscal;
+    }
 }
