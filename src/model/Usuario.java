@@ -15,4 +15,30 @@ public class Usuario extends Pessoa {
     public boolean autenticar(String email, String senha) {
         return this.email.equals(email) && this.senha.equals(senha);
     }
+
+    // Getters
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    // Setters
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }
