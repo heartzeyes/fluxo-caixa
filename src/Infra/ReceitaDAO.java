@@ -1,4 +1,4 @@
-package infra;
+package Infra;
 
 import model.Receita;
 import model.CategoriaFinanceira;

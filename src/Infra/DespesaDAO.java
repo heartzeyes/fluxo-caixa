@@ -1,11 +1,6 @@
 package Infra;
 
 
-
-import model.Despesa;
-import model.CategoriaFinanceira;
-import model.ParceiroNegocio;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
