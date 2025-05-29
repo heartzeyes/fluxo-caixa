@@ -1,13 +1,12 @@
 package Infra;
 
-import model.Receita;
-import model.CategoriaFinanceira;
-import model.ParceiroNegocio;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.CategoriaFinanceira;
+import model.ParceiroNegocio;
+import model.Receita;
 
 public class ReceitaDAO {
 
@@ -45,14 +44,14 @@ public class ReceitaDAO {
         ) {
             stmt.setDouble(1, receita.getValor());
             stmt.setDate(2, Date.valueOf(receita.getData()));
-            stmt.setString(3, receita.descricao);
-            stmt.setInt(4, receita.categoria.getId());
-            stmt.setInt(5, receita.parceiro.getId());
-            stmt.setString(6, receita.status);
+            stmt.setString(3, receita.getDescricao());
+            stmt.setInt(4, receita.getCategoria().getId());
+            stmt.setInt(5, receita.getParceiro().getId());
+            stmt.setString(6, receita.getStatus());
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                receita.id = rs.getInt("id");
+                receita.setId(rs.getInt("id"));
             }
             System.out.println("Receita inserida com sucesso.");
         } catch (SQLException e) {
@@ -89,11 +88,11 @@ public class ReceitaDAO {
         ) {
             stmt.setDouble(1, receita.getValor());
             stmt.setDate(2, Date.valueOf(receita.getData()));
-            stmt.setString(3, receita.descricao);
-            stmt.setInt(4, receita.categoria.getId());
-            stmt.setInt(5, receita.parceiro.getId());
-            stmt.setString(6, receita.status);
-            stmt.setInt(7, receita.id);
+            stmt.setString(3, receita.getDescricao());
+            stmt.setInt(4, receita.getCategoria().getId());
+            stmt.setInt(5, receita.getParceiro().getId());
+            stmt.setString(6, receita.getStatus());
+            stmt.setInt(7, receita.getId());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {

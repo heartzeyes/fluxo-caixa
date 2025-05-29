@@ -1,7 +1,7 @@
 package model;
 
-import java.util.*;
 import java.time.LocalDate;
+import java.util.*;
 
 public class FluxoCaixa {
     private List<Receita> receitas = new ArrayList<>();

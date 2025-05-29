@@ -7,7 +7,7 @@ public abstract class TransacaoFinanceira {
     protected double valor;
     protected LocalDate data;
     protected String descricao;
-    public CategoriaFinanceira categoria;
+    protected CategoriaFinanceira categoria;
     protected ParceiroNegocio parceiro;
     protected String status;
 
@@ -24,5 +24,61 @@ public abstract class TransacaoFinanceira {
 
     public boolean isLiquidada() {
         return "liquidado".equalsIgnoreCase(status);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public CategoriaFinanceira getCategoria() {
+        return categoria;
+    }
+
+    public ParceiroNegocio getParceiro() {
+        return parceiro;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setCategoria(CategoriaFinanceira categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setParceiro(ParceiroNegocio parceiro) {
+        this.parceiro = parceiro;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

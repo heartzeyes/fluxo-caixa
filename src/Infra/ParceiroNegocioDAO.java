@@ -7,8 +7,6 @@ import model.ParceiroNegocio;
 
 public class ParceiroNegocioDAO {
 
-    private PessoaDAO pessoaDAO = new PessoaDAO();
-
     public void createTable() {
         String sql = """
                 CREATE TABLE IF NOT EXISTS ParceiroNegocio (
@@ -30,9 +28,6 @@ public class ParceiroNegocioDAO {
     }
 
     public void insert(ParceiroNegocio parceiro) {
-        // Primeiro insere na tabela Pessoa
-        pessoaDAO.insert(parceiro);
-
         String sql = "INSERT INTO ParceiroNegocio (id, tipo) VALUES (?, ?)";
 
         try (
@@ -101,9 +96,6 @@ public class ParceiroNegocioDAO {
     }
 
     public boolean updateById(ParceiroNegocio parceiro) {
-        // Atualiza dados em Pessoa
-        boolean pessoaAtualizada = pessoaDAO.updateById(parceiro);
-
         String sql = "UPDATE ParceiroNegocio SET tipo = ? WHERE id = ?";
 
         try (
@@ -114,7 +106,7 @@ public class ParceiroNegocioDAO {
             stmt.setInt(2, parceiro.getId());
 
             int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0 && pessoaAtualizada;
+            return rowsAffected > 0;
         } catch (SQLException e) {
             handleSQLException("atualizar parceiro de negócio", e);
             return false;
@@ -132,7 +124,7 @@ public class ParceiroNegocioDAO {
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                return pessoaDAO.deleteById(id);
+                return true;
             } else {
                 return false;
             }
