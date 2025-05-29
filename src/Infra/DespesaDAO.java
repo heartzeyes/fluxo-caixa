@@ -5,6 +5,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.CategoriaFinanceira;
+import model.Despesa;
+import model.ParceiroNegocio;
 
 public class DespesaDAO {
 
@@ -43,15 +46,15 @@ public class DespesaDAO {
         ) {
             stmt.setDouble(1, despesa.getValor());
             stmt.setDate(2, Date.valueOf(despesa.getData()));
-            stmt.setString(3, despesa.descricao);
-            stmt.setInt(4, despesa.categoria.getId());
-            stmt.setInt(5, despesa.parceiro.getId());
-            stmt.setString(6, despesa.status);
+            stmt.setString(3, despesa.getDescricao());
+            stmt.setInt(4, despesa.getCategoria().getId());
+            stmt.setInt(5, despesa.getParceiro().getId());
+            stmt.setString(6, despesa.getStatus());
             stmt.setBoolean(7, despesa.isPaga());
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                despesa.id = rs.getInt("id");
+                despesa.setId(rs.getInt("id"));
             }
             System.out.println("Despesa inserida com sucesso.");
         } catch (SQLException e) {
@@ -88,12 +91,12 @@ public class DespesaDAO {
         ) {
             stmt.setDouble(1, despesa.getValor());
             stmt.setDate(2, Date.valueOf(despesa.getData()));
-            stmt.setString(3, despesa.descricao);
-            stmt.setInt(4, despesa.categoria.getId());
-            stmt.setInt(5, despesa.parceiro.getId());
-            stmt.setString(6, despesa.status);
+            stmt.setString(3, despesa.getDescricao());
+            stmt.setInt(4, despesa.getCategoria().getId());
+            stmt.setInt(5, despesa.getParceiro().getId());
+            stmt.setString(6, despesa.getStatus());
             stmt.setBoolean(7, despesa.isPaga());
-            stmt.setInt(8, despesa.id);
+            stmt.setInt(8, despesa.getId());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {

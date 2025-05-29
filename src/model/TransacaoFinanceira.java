@@ -7,7 +7,7 @@ public abstract class TransacaoFinanceira {
     protected double valor;
     protected LocalDate data;
     protected String descricao;
-    protected CategoriaFinanceira categoria;
+    public CategoriaFinanceira categoria;
     protected ParceiroNegocio parceiro;
     protected String status;
 
