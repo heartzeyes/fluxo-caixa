@@ -1,10 +1,9 @@
 package Infra;
 
-import model.Usuario;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import model.Usuario;
 
 public class UsuarioDAO {
 
@@ -131,7 +130,6 @@ public class UsuarioDAO {
         String senha = rs.getString("senha");
         String tipo = rs.getString("tipo");
 
-        // Considerando valores fictícios para os atributos herdados de Pessoa:
         return new Usuario(id, "NomeDesconhecido", "IdentificacaoDesconhecida", email, senha, tipo);
     }
 

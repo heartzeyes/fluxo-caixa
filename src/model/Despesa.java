@@ -11,27 +11,22 @@ public class Despesa extends TransacaoFinanceira {
         this.paga = paga;
     }
 
-    // Getter para valor
     public double getValor() {
         return this.valor;
     }
 
-    // Getter para data
     public LocalDate getData() {
         return this.data;
     }
 
-    // Getter para paga
     public boolean isPaga() {
         return paga;
     }
 
-    // Setter para paga
     public void setPaga(boolean paga) {
         this.paga = paga;
     }
 
-    // Método pagar
     public void pagar() {
         this.paga = true;
         this.status = "liquidado";

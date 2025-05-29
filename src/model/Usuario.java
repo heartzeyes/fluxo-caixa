@@ -16,7 +16,6 @@ public class Usuario extends Pessoa {
         return this.email.equals(email) && this.senha.equals(senha);
     }
 
-    // Getters
     public String getEmail() {
         return email;
     }
@@ -29,7 +28,6 @@ public class Usuario extends Pessoa {
         return tipo;
     }
 
-    // Setters
     public void setEmail(String email) {
         this.email = email;
     }

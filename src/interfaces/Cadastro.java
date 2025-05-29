@@ -1,11 +1,11 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ */
+
 package interfaces;
 
-import java.util.List;
 
-public interface Cadastro<T> {
-    void adicionar(T entidade);
-    void editar(T entidade);
-    void remover(int id);
-    T buscarPorId(int id);
-    List<T> listarTodos();
+interface Cadastro<T> {
+
 }
