@@ -2,10 +2,12 @@ package model;
 
 public class ParceiroNegocio extends Pessoa {
     private String tipo;
+    protected String identificacaoFiscal;
 
     public ParceiroNegocio(int id, String nome, String identificacaoFiscal, String tipo) {
-        super(id, nome, identificacaoFiscal);
+        super(id, nome);
         this.tipo = tipo;
+        this.identificacaoFiscal = identificacaoFiscal;
     }
 
     public String getTipo(){
@@ -14,5 +16,12 @@ public class ParceiroNegocio extends Pessoa {
 
     public void setTipo(String tipo){
         this.tipo = tipo;
+    }
+
+    public String getIdentificacaoFiscal(){
+        return this.identificacaoFiscal;
+    }
+    public void setIdentificacaoFiscal(String identificacaoFiscal){
+        this.identificacaoFiscal = identificacaoFiscal;
     }
 }
