@@ -5,7 +5,7 @@ public class ParceiroNegocio extends Pessoa {
     protected String identificacaoFiscal;
 
     public ParceiroNegocio(int id, String nome, String identificacaoFiscal, String tipo) {
-        super(id, nome);
+        super(nome);
         this.tipo = tipo;
         this.identificacaoFiscal = identificacaoFiscal;
     }

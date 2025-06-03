@@ -4,9 +4,11 @@ public class CategoriaFinanceira {
     private int id;
     private String nome;
 
-    public CategoriaFinanceira(int id, String nome) {
+    private String descricao;
+    public CategoriaFinanceira(int id, String nome, String descricao) {
         this.id = id;
         this.nome = nome;
+        this.descricao = descricao;
     }
 
     public int getId() {
@@ -23,5 +25,11 @@ public class CategoriaFinanceira {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public String getDescricao() {
+        return descricao;
+    }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }

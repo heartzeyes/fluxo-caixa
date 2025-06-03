@@ -4,8 +4,8 @@ public class Usuario extends Pessoa {
     private String email;
     private String senha;
 
-    public Usuario(int id, String nome, String email, String senha) {
-        super(id, nome);
+    public Usuario(String nome, String email, String senha) {
+        super(nome);
         this.email = email;
         this.senha = senha;
     }

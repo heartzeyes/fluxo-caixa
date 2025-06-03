@@ -52,7 +52,7 @@ public class UsuarioImpl implements UsuarioDAO {
 
     @Override
     public void insert(Usuario usuario) {
-        String sql = "INSERT INTO Usuario (id, email, senha, nome) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Usuario (email, senha, nome) VALUES (?, ?, ?)";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -122,12 +122,14 @@ public class UsuarioImpl implements UsuarioDAO {
         String email = rs.getString("email");
         String senha = rs.getString("senha");
 
-        return new Usuario(id, nome, email, senha);
+        Usuario usuario = new Usuario(nome, email, senha);
+        usuario.setId(id);
+        return usuario;
     }
 
     private void setUsuarioParameters(PreparedStatement stmt, Usuario usuario) throws SQLException {
-        stmt.setInt(1, usuario.getId());
-        stmt.setString(2, usuario.getEmail());
-        stmt.setString(3, usuario.getSenha());
+        stmt.setString(1, usuario.getEmail());
+        stmt.setString(2, usuario.getSenha());
+        stmt.setString(3, usuario.getNome());
     }
 }

@@ -1,6 +1,10 @@
 package dao.despesa;
 
 import dao.ConnectionFactory;
+import dao.categoriafinanceira.CategoriaFinanceiraDAO;
+import dao.categoriafinanceira.CategoriaFinanceiraImpl;
+import dao.parceironegocio.ParceiroNegocioDAO;
+import dao.parceironegocio.ParceiroNegocioImpl;
 import model.Despesa;
 import model.CategoriaFinanceira;
 import model.ParceiroNegocio;
@@ -56,8 +60,9 @@ public class DespesaImpl implements DespesaDAO {
         return despesas;
     }
     @Override
-    public Despesa getByParceiro(int id) {
+    public List<Despesa> getByParceiro(int id) {
         String sql = "SELECT id, valor, data, descricao, categoria_id, parceiro_id, status, paga FROM Despesa WHERE parceiro_id = ?";
+        List<Despesa> despesas = new ArrayList<>();
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -65,8 +70,8 @@ public class DespesaImpl implements DespesaDAO {
             stmt.setInt(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return mapResultSetToDespesa(rs);
+                while (rs.next()) {
+                    despesas.add(mapResultSetToDespesa(rs));
                 }
             }
 
@@ -155,8 +160,11 @@ public class DespesaImpl implements DespesaDAO {
         String status = rs.getString("status");
         boolean paga = rs.getBoolean("paga");
 
-        CategoriaFinanceira categoria = new CategoriaFinanceira(categoriaId, "");
-        ParceiroNegocio parceiro = new ParceiroNegocio(parceiroId, "", "", "");
+        CategoriaFinanceiraDAO categoriaFinanceiraDAO= new CategoriaFinanceiraImpl();
+        ParceiroNegocioDAO parceiroNegocioDAO = new ParceiroNegocioImpl();
+
+        CategoriaFinanceira categoria = categoriaFinanceiraDAO.getById(categoriaId);
+        ParceiroNegocio parceiro = parceiroNegocioDAO.getById(parceiroId);
 
         return new Despesa(id, valor, data, descricao, categoria, parceiro, status, paga);
     }

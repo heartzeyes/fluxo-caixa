@@ -54,12 +54,13 @@ public class CategoriaFinanceiraImpl implements CategoriaFinanceiraDAO {
 
     @Override
     public void insert(CategoriaFinanceira categoria) {
-        String sql = "INSERT INTO CategoriaFinanceira (nome) VALUES (?) RETURNING id";
+        String sql = "INSERT INTO CategoriaFinanceira (nome, descricao) VALUES (?) RETURNING id";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, categoria.getNome());
+            stmt.setString(2, categoria.getDescricao());
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -75,13 +76,14 @@ public class CategoriaFinanceiraImpl implements CategoriaFinanceiraDAO {
 
     @Override
     public void update(CategoriaFinanceira categoria) {
-        String sql = "UPDATE CategoriaFinanceira SET nome = ? WHERE id = ?";
+        String sql = "UPDATE CategoriaFinanceira SET nome = ?, SET descricao = ? WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, categoria.getNome());
-            stmt.setInt(2, categoria.getId());
+            stmt.setString(2, categoria.getDescricao());
+            stmt.setInt(3, categoria.getId());
 
             int linhasAfetadas = stmt.executeUpdate();
 
@@ -121,6 +123,7 @@ public class CategoriaFinanceiraImpl implements CategoriaFinanceiraDAO {
     private CategoriaFinanceira mapResultSetToCategoria(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String nome = rs.getString("nome");
-        return new CategoriaFinanceira(id, nome);
+        String descricao = rs.getString("descricao");
+        return new CategoriaFinanceira(id, nome, descricao);
     }
 }

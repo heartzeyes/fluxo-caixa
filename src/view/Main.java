@@ -1,4 +1,4 @@
-package vIew;
+package view;
 
 import dao.DatabaseManager;
 import model.Usuario;

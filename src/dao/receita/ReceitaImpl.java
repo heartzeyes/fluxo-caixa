@@ -1,6 +1,10 @@
 package dao.receita;
 
 import dao.ConnectionFactory;
+import dao.categoriafinanceira.CategoriaFinanceiraDAO;
+import dao.categoriafinanceira.CategoriaFinanceiraImpl;
+import dao.parceironegocio.ParceiroNegocioDAO;
+import dao.parceironegocio.ParceiroNegocioImpl;
 import model.Receita;
 import model.CategoriaFinanceira;
 import model.ParceiroNegocio;
@@ -57,7 +61,8 @@ public class ReceitaImpl implements ReceitaDAO {
     }
 
     @Override
-    public Receita getByParceiro(int id) {
+    public List<Receita> getByParceiro(int id) {
+        List<Receita> receitas = new ArrayList<>();
         String sql = "SELECT id, valor, data, descricao, categoria_id, parceiro_id, status FROM Receita WHERE parceiro_id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
@@ -66,8 +71,8 @@ public class ReceitaImpl implements ReceitaDAO {
             stmt.setInt(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return mapResultSetToReceita(rs);
+                while (rs.next()) {
+                    receitas.add(mapResultSetToReceita(rs));
                 }
             }
 
@@ -155,8 +160,12 @@ public class ReceitaImpl implements ReceitaDAO {
         int parceiroId = rs.getInt("parceiro_id");
         String status = rs.getString("status");
 
-        CategoriaFinanceira categoria = new CategoriaFinanceira(categoriaId, "");
-        ParceiroNegocio parceiro = new ParceiroNegocio(parceiroId, "", "", "");
+        CategoriaFinanceiraDAO categoriaFinanceiraDAO= new CategoriaFinanceiraImpl();
+        ParceiroNegocioDAO parceiroNegocioDAO = new ParceiroNegocioImpl();
+
+        CategoriaFinanceira categoria = categoriaFinanceiraDAO.getById(categoriaId);
+        ParceiroNegocio parceiro = parceiroNegocioDAO.getById(parceiroId);
+
 
         return new Receita(id, valor, data, descricao, categoria, parceiro, status);
     }

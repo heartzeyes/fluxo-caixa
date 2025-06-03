@@ -12,7 +12,7 @@ public class DatabaseManager {
 
             stmt.executeUpdate("""
                 CREATE TABLE IF NOT EXISTS CategoriaFinanceira (
-                    id SERIAL PRIMARY KEY,
+                    id INT PRIMARY KEY,
                     nome VARCHAR(100) NOT NULL,
                     descricao TEXT
                 )
@@ -38,7 +38,7 @@ public class DatabaseManager {
 
             stmt.executeUpdate("""
                 CREATE TABLE IF NOT EXISTS Despesa (
-                    id SERIAL PRIMARY KEY,
+                    id INT PRIMARY KEY,
                     valor DECIMAL(10,2) NOT NULL,
                     data DATE NOT NULL,
                     descricao TEXT,
@@ -51,7 +51,7 @@ public class DatabaseManager {
 
             stmt.executeUpdate("""
                 CREATE TABLE IF NOT EXISTS Receita (
-                    id SERIAL PRIMARY KEY,
+                    id INT PRIMARY KEY,
                     valor DECIMAL(10,2) NOT NULL,
                     data DATE NOT NULL,
                     descricao TEXT,

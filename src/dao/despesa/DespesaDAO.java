@@ -8,7 +8,7 @@ import java.util.List;
 public interface DespesaDAO {
     List<Despesa> getAll();
     List<Despesa> getByPeriodo(LocalDate dataInicio, LocalDate dataFim);
-    Despesa getByParceiro(int id);
+    List<Despesa> getByParceiro(int id);
     void insert(Despesa despesa);
     void update(Despesa despesa);
     void deleteById(int id);
