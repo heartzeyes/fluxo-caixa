@@ -58,13 +58,14 @@ public class ParceiroNegocioImpl implements ParceiroNegocioDAO {
 
     @Override
     public void insert(ParceiroNegocio parceiro) {
-        String sql = "INSERT INTO ParceiroNegocio (id, tipo) VALUES (?, ?)";
+        String sql = "INSERT INTO ParceiroNegocio (nome, tipo, identificador_fiscal) VALUES (?, ?, ?)";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, parceiro.getId());
+            stmt.setString(1, parceiro.getNome());    
             stmt.setString(2, parceiro.getTipo());
+            stmt.setString(3, parceiro.getIdentificacaoFiscal());
 
             stmt.executeUpdate();
             System.out.println("Parceiro de Negócio inserido com sucesso.");
@@ -76,13 +77,15 @@ public class ParceiroNegocioImpl implements ParceiroNegocioDAO {
 
     @Override
     public void update(ParceiroNegocio parceiro) {
-        String sql = "UPDATE ParceiroNegocio SET tipo = ? WHERE id = ?";
+        String sql = "UPDATE ParceiroNegocio SET tipo = ?, identificador_fiscal = ?, nome = ? WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, parceiro.getTipo());
-            stmt.setInt(2, parceiro.getId());
+            stmt.setString(2, parceiro.getIdentificacaoFiscal());
+            stmt.setString(3, parceiro.getNome());
+            stmt.setInt(4, parceiro.getId());
 
             int linhasAfetadas = stmt.executeUpdate();
 
@@ -122,7 +125,7 @@ public class ParceiroNegocioImpl implements ParceiroNegocioDAO {
     private ParceiroNegocio mapResultSetToParceiro(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String nome = rs.getString("nome");
-        String identificacaoFiscal = rs.getString("identificacaoFiscal");
+        String identificacaoFiscal = rs.getString("identificador_fiscal");
         String tipo = rs.getString("tipo");
 
         return new ParceiroNegocio(id, nome, identificacaoFiscal, tipo);

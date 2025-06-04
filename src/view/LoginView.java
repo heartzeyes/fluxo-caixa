@@ -39,8 +39,7 @@ class LoginView {
                     String novoEmail = Main.getScanner().nextLine();
                     System.out.print("Senha: ");
                     String novaSenha = Main.getScanner().nextLine();
-                    usuarioDAO.insert(new Usuario(novoEmail, novaSenha, nome));
-                    System.out.println("Usuário cadastrado.");
+                    usuarioDAO.insert(new Usuario(nome, novoEmail, novaSenha));
                     break;
                 case "0":
                     return false;

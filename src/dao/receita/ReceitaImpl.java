@@ -80,24 +80,23 @@ public class ReceitaImpl implements ReceitaDAO {
             System.out.println("Erro ao buscar receita por ID: " + e.getMessage());
         }
 
-        return null;
+        return receitas;
     }
 
     @Override
     public void insert(Receita receita) {
         String sql = "INSERT INTO Receita (valor, data, descricao, categoria_id, parceiro_id, status) " +
-                "VALUES (?, ?, ?, ?, ?, ?) RETURNING id";
+                "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             setReceitaParameters(stmt, receita);
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    receita.setId(rs.getInt("id"));
-                    System.out.println("Receita inserida com sucesso.");
-                }
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Receita inserida com sucesso.");
             }
 
         } catch (SQLException e) {

@@ -32,4 +32,9 @@ public class CategoriaFinanceira {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+    @Override
+    public String toString() {
+        return String.format("Categoria Financeira: id=%d, nome='%s', descricao='%s'", 
+                           id, nome, descricao);
+    }
 }

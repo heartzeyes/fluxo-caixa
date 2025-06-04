@@ -39,4 +39,13 @@ public class Despesa extends TransacaoFinanceira {
     public void setDescricao(String descricao){
         this.descricao = descricao;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Despesa: id=%d, valor=%.2f, data=%s, descricao='%s', categoria='%s', parceiro='%s', status='%s', paga=%s", 
+                           getId(), valor, data, descricao, 
+                           categoria != null ? categoria.getNome() : "N/A",
+                           parceiro != null ? parceiro.getNome() : "N/A",
+                           status, paga ? "Sim" : "Não");
+    }
 }

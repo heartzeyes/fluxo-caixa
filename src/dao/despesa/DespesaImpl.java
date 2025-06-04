@@ -79,24 +79,23 @@ public class DespesaImpl implements DespesaDAO {
             System.out.println("Erro ao buscar despesa por ID: " + e.getMessage());
         }
 
-        return null;
+        return despesas;
     }
 
     @Override
     public void insert(Despesa despesa) {
         String sql = "INSERT INTO Despesa (valor, data, descricao, categoria_id, parceiro_id, status, paga) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id";
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             setDespesaParameters(stmt, despesa);
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    despesa.setId(rs.getInt("id"));
-                    System.out.println("Despesa inserida com sucesso.");
-                }
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Despesa inserida com sucesso.");
             }
 
         } catch (SQLException e) {

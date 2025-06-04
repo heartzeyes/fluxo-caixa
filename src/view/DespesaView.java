@@ -43,11 +43,27 @@ public class DespesaView {
                     int parceiroId = Integer.parseInt(Main.getScanner().nextLine());
                     System.out.print("Status: ");
                     String status = Main.getScanner().nextLine();
-                    System.out.print("Paga (true/false): ");
-                    boolean paga = Boolean.parseBoolean(Main.getScanner().nextLine());
+                    boolean paga = obterStatusPaga();
 
                     var categoriaFinanceira = categoriaFinanceiraDAO.getById(catId);
+                    if (categoriaFinanceira == null) {
+                        System.out.println("Erro: Categoria com ID " + catId + " não encontrada!");
+                        System.out.println("Categorias disponíveis:");
+                        categoriaFinanceiraDAO.getAll().forEach(cat -> 
+                            System.out.println("   ID: " + cat.getId() + " - " + cat.getNome())
+                        );
+                        break;
+                    }
+
                     var parceiro = parceiroNegocioDAO.getById(parceiroId);
+                    if (parceiro == null) {
+                        System.out.println("Erro: Parceiro com ID " + parceiroId + " não encontrado!");
+                        System.out.println("Parceiros disponíveis:");
+                        parceiroNegocioDAO.getAll().forEach(p -> 
+                            System.out.println("   ID: " + p.getId() + " - " + p.getNome())
+                        );
+                        break;
+                    }
 
                     dao.insert(new Despesa(0, valor, data, descricao, categoriaFinanceira, parceiro, status, paga));
                     break;
@@ -67,8 +83,7 @@ public class DespesaView {
                     parceiroId = Integer.parseInt(Main.getScanner().nextLine());
                     System.out.print("Novo status: ");
                     status = Main.getScanner().nextLine();
-                    System.out.print("Paga (true/false): ");
-                    paga = Boolean.parseBoolean(Main.getScanner().nextLine());
+                    paga = obterStatusPaga();
 
                     var categoriaFinanceiraUpdate = categoriaFinanceiraDAO.getById(catId);
                     var parceiroUpdate = parceiroNegocioDAO.getById(parceiroId);
@@ -106,6 +121,25 @@ public class DespesaView {
                     break;
                 case "0": return;
                 default: System.out.println("Opção inválida.");
+            }
+        }
+    }
+
+    private static boolean obterStatusPaga() {
+        while (true) {
+            System.out.print("A despesa está paga? (S/N): ");
+            String resposta = Main.getScanner().nextLine().trim().toUpperCase();
+            
+            switch (resposta) {
+                case "S", "SIM", "Y", "YES" -> {
+                    return true;
+                }
+                case "N", "NAO", "NÃO", "NO" -> {
+                    return false;
+                }
+                default -> {
+                    System.out.println("❌ Resposta inválida! Digite S para Sim ou N para Não.");
+                }
             }
         }
     }

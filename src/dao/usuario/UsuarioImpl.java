@@ -79,6 +79,7 @@ public class UsuarioImpl implements UsuarioDAO {
 
             stmt.setString(1, usuario.getEmail());
             stmt.setString(2, usuario.getSenha());
+            stmt.setString(3, usuario.getNome());
             stmt.setInt(4, usuario.getId());
 
             int linhasAfetadas = stmt.executeUpdate();

@@ -13,7 +13,7 @@ public class CategoriaFinanceiraImpl implements CategoriaFinanceiraDAO {
     public List<CategoriaFinanceira> getAll() {
         List<CategoriaFinanceira> categorias = new ArrayList<>();
 
-        String sql = "SELECT id, nome FROM CategoriaFinanceira";
+        String sql = "SELECT * FROM CategoriaFinanceira";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -32,7 +32,7 @@ public class CategoriaFinanceiraImpl implements CategoriaFinanceiraDAO {
 
     @Override
     public CategoriaFinanceira getById(int id) {
-        String sql = "SELECT id, nome FROM CategoriaFinanceira WHERE id = ?";
+        String sql = "SELECT * FROM CategoriaFinanceira WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -54,7 +54,7 @@ public class CategoriaFinanceiraImpl implements CategoriaFinanceiraDAO {
 
     @Override
     public void insert(CategoriaFinanceira categoria) {
-        String sql = "INSERT INTO CategoriaFinanceira (nome, descricao) VALUES (?) RETURNING id";
+        String sql = "INSERT INTO CategoriaFinanceira (nome, descricao) VALUES (?, ?)";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -62,11 +62,10 @@ public class CategoriaFinanceiraImpl implements CategoriaFinanceiraDAO {
             stmt.setString(1, categoria.getNome());
             stmt.setString(2, categoria.getDescricao());
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    categoria.setId(rs.getInt("id"));
-                    System.out.println("Categoria inserida com sucesso.");
-                }
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Categoria inserida com sucesso.");
             }
 
         } catch (SQLException e) {
@@ -76,7 +75,7 @@ public class CategoriaFinanceiraImpl implements CategoriaFinanceiraDAO {
 
     @Override
     public void update(CategoriaFinanceira categoria) {
-        String sql = "UPDATE CategoriaFinanceira SET nome = ?, SET descricao = ? WHERE id = ?";
+        String sql = "UPDATE CategoriaFinanceira SET nome = ?, descricao = ? WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
