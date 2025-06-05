@@ -17,10 +17,23 @@ public class Receita extends TransacaoFinanceira {
     }
     @Override
     public String toString() {
-        return String.format("Receita: id=%d, valor=%.2f, data=%s, descricao='%s', categoria='%s', parceiro='%s', status='%s'", 
-                           getId(), valor, data, descricao,
-                           categoria != null ? categoria.getNome() : "N/A",
-                           parceiro != null ? parceiro.getNome() : "N/A",
-                           status);
+        return String.format(
+            "Receita:\n" +
+            "id=%d\n" +
+            "valor=%.2f\n" +
+            "data=%s\n" +
+            "descricao='%s'\n" +
+            "categoria='%s'\n" +
+            "parceiro='%s'\n" +
+            "status='%s'",
+            getId(),
+            valor,
+            data,
+            descricao,
+            categoria != null ? categoria.getNome() : "N/A",
+            parceiro != null ? parceiro.getNome() : "N/A",
+            status
+        );
     }
+
 }

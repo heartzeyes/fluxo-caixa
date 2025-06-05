@@ -42,10 +42,25 @@ public class Despesa extends TransacaoFinanceira {
 
     @Override
     public String toString() {
-        return String.format("Despesa: id=%d, valor=%.2f, data=%s, descricao='%s', categoria='%s', parceiro='%s', status='%s', paga=%s", 
-                           getId(), valor, data, descricao, 
-                           categoria != null ? categoria.getNome() : "N/A",
-                           parceiro != null ? parceiro.getNome() : "N/A",
-                           status, paga ? "Sim" : "Não");
+        return String.format(
+            "================\n" +
+            "Despesa: id=%d\n" +
+            "Valor=%.2f\n" +
+            "Data=%s\n" +
+            "Descricao='%s'\n" +
+            "Categoria='%s'\n" +
+            "Parceiro='%s'\n" +
+            "Status='%s'\n" +
+            "Paga=%s\n" +
+            "================",
+            getId(),
+            valor,
+            data,
+            descricao,
+            categoria != null ? categoria.getNome() : "N/A",
+            parceiro != null ? parceiro.getNome() : "N/A",
+            status,
+            paga ? "Sim" : "Não"
+        );
     }
 }

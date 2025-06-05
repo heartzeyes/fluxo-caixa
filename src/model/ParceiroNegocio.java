@@ -27,7 +27,16 @@ public class ParceiroNegocio extends Pessoa {
     }
     @Override
     public String toString() {
-        return String.format("Parceiro de Negócio: id=%d, nome='%s', identificacaoFiscal='%s', tipo='%s'", 
-                           getId(), getNome(), identificacaoFiscal, tipo);
+        return String.format(
+            "Parceiro de Negócio:\n" +
+            "id=%d\n" +
+            "nome='%s'\n" +
+            "identificacaoFiscal='%s'\n" +
+            "tipo='%s'",
+            getId(),
+            getNome(),
+            identificacaoFiscal,
+            tipo
+        );
     }
 }
